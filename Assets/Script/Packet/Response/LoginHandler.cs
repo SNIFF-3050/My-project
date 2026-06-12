@@ -30,14 +30,6 @@ public class LoginHandler : IPacketHandler {
             Debug.Log("리시브 : " + reader.ReadLong());
             Debug.Log("리시브 : " + reader.ReadByte());
             Debug.Log("리시브 받음2222222222222222" + reader.getPacketString());
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of db3554a (Update LoginHandler.cs)
-            Debug.Log("리시브gg : " + reader.ReadLong());
-            Debug.Log("리시브ggSaaaa : " + reader.ReadLong());
->>>>>>> parent of db3554a (Update LoginHandler.cs)
         } catch (EndOfStreamException e) {
             Debug.Log("GD" + e.Message);
         }
