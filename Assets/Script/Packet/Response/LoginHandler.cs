@@ -28,7 +28,7 @@ public class LoginHandler : IPacketHandler {
             Debug.Log("리시브 : " + reader.ReadLong());
             Debug.Log("리시브 : " + reader.ReadByte());
             Debug.Log("리시브 받음2222222222222222" + reader.getPacketString());
-            Debug.Log("리시브gg : " + reader.ReadLong());
+            Debug.Log("리시브ggaaaaaaaaa : " + reader.ReadLong());
             Debug.Log("리시브ggSaaaa : " + reader.ReadLong());
         } catch (EndOfStreamException e) {
             Debug.Log("GD" + e.Message);
