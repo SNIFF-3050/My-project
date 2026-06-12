@@ -13,6 +13,8 @@ public class LoginHandler : IPacketHandler {
     
     private void Pong(LittleEndianReader reader) {
         try {
+            Debug.Log("리시브ggaaaaaaaaa : " + reader.ReadLong());
+            Debug.Log("리시브ggSaaaa : " + reader.ReadLong());
             Debug.Log("리시브 받음2111111111222222222222222" + reader.getPacketString());
             Debug.Log("리시브 받음2" + reader.getPacketString());
             Debug.Log("리시브 : " + reader.ReadAsciiString());
@@ -27,8 +29,6 @@ public class LoginHandler : IPacketHandler {
             Debug.Log("리시aa브 : " + reader.ReadAsciiString());
             Debug.Log("리시브 : " + reader.ReadLong());
             Debug.Log("리시브 : " + reader.ReadByte());
-            Debug.Log("리시브ggaaaaaaaaa : " + reader.ReadLong());
-            Debug.Log("리시브ggSaaaa : " + reader.ReadLong());
             Debug.Log("리시브 받음2222222222222222" + reader.getPacketString());
         } catch (EndOfStreamException e) {
             Debug.Log("GD" + e.Message);
