@@ -34,6 +34,6 @@ public class LoginHandler : IPacketHandler {
             Debug.Log("GD" + e.Message);
         }
     }
-
+    
     private void HandlerLoginStatus(LittleEndianReader reader) => Debug.Log("로그인 상태 리시브 : " + reader.getPacketString());
 }
