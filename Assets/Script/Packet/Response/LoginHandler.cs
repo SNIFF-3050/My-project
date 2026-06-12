@@ -24,7 +24,7 @@ public class LoginHandler : IPacketHandler {
             Debug.Log("리aa시브 : " + reader.ReadLong());
             Debug.Log("리aa시브 : " + reader.ReadInt());
             Debug.Log("리시브 : " + reader.ReadLong());
-            Debug.Log("리시브 : " + reader.ReadAsciiString());
+            Debug.Log("리시aa브 : " + reader.ReadAsciiString());
             Debug.Log("리시브 : " + reader.ReadLong());
             Debug.Log("리시브 : " + reader.ReadByte());
             Debug.Log("리시브 받음2222222222222222" + reader.getPacketString());
