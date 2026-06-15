@@ -1,14 +1,16 @@
 using Game.Network;
 using Game.Network.IO;
 using Game.Packets.Request;
+using System;
 using UnityEngine;
 
 public class GameClient : MonoBehaviour {
-
-    private long gold;
     public static GameClient Instance {
         get; private set;
     }
+    public event Action<DataCategory, CharacterData> OnDataChanged;
+
+    public CharacterData Data { get; private set; } = new CharacterData();
 
     void Awake() {
         if (Instance == null) {
@@ -19,19 +21,24 @@ public class GameClient : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void loadFromCharacter(LittleEndianReader reader) {
-        this.gold = reader.ReadLong();
-        Debug.Log("현재 골드 수치 : " + this.gold);
-        GoldManagerHandler.Instance.UpdateUI(gold);
+    public void LoadFromCharacter(LittleEndianReader reader) {
+        Data.gold = reader.ReadLong();
+        Data.level = reader.ReadInt();
+        if (OnDataChanged == null)
+            Debug.LogWarning("[GameClient] 구독자가 0명입니다!");
+        else
+            Debug.Log($"[GameClient] 구독자 수: {OnDataChanged.GetInvocationList().Length}");
+        OnDataChanged?.Invoke(DataCategory.ALL, Data);
     }
 
 
     public void getGoldInformation(long amount, bool changegoldstatus) {
         if (changegoldstatus) {
-            this.gold += amount;
+            Data.gold += amount;
         } else {
-            this.gold = amount;
+            Data.gold = amount;
         }
-        GoldManagerHandler.Instance.UpdateUI(gold);
+        OnDataChanged?.Invoke(DataCategory.Gold, Data);
+        NettyManager.Instance.Send(LoginPacket.getGoldInformation(Data.gold));
     }
 }

@@ -22,7 +22,7 @@ public class LoginHandler : IPacketHandler {
     private void getCharactrerInformation(LittleEndianReader reader) {
         try {
             Debug.Log("캐릭터 정보 불러오는중");
-            GameClient.Instance.loadFromCharacter(reader);
+            GameClient.Instance.LoadFromCharacter(reader);
         } catch (EndOfStreamException e) {
             Debug.Log("GD" + e.Message);
         }
@@ -31,7 +31,9 @@ public class LoginHandler : IPacketHandler {
     private void HandlerUpdateGoldStatus(LittleEndianReader reader) {
         try {
             long gold = reader.ReadLong();
-            GameClient.Instance.getGoldInformation(gold, false);
+            if (GameClient.Instance != null) {
+                GameClient.Instance.getGoldInformation(gold, false);
+            }
         } catch (EndOfStreamException e) {
             Debug.Log(e.Message);
         }

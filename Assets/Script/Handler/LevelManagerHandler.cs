@@ -1,16 +1,16 @@
 using UnityEngine;
 using TMPro;
 
-public class GoldManagerHandler : MonoBehaviour {
-    [SerializeField] private TextMeshProUGUI goldText;
+public class LevelManagerHandler : MonoBehaviour {
+    [SerializeField] private TextMeshProUGUI leveltext;
 
     void OnEnable() => GameClient.Instance.OnDataChanged += HandleDataChanged;
     void OnDisable() => GameClient.Instance.OnDataChanged -= HandleDataChanged;
 
     private void HandleDataChanged(DataCategory category, CharacterData data) {
-        if (category != DataCategory.Gold && category != DataCategory.ALL) {
+        if (category != DataCategory.Level && category != DataCategory.ALL) {
             return;
         }
-        goldText.text = $"Gold: {data.gold}";
+        leveltext.text = $"LEVEL: {data.level}";
     }
 }
