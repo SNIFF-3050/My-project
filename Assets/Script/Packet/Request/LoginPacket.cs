@@ -10,5 +10,12 @@ namespace Game.Packets.Request {
             writer.WriteInt(1);
             return writer.GetPacketBytes();
         }
+
+        public static byte[] getTest() {
+            var writer = new LittleEndianWriter();
+            writer.WriteShort(ClientSendOpcode.TEST.GetValue());
+            writer.WriteLong(1323);
+            return writer.GetPacketBytes();
+        }
     }
 }

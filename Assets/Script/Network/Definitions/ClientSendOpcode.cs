@@ -1,6 +1,6 @@
-public enum ClientSendOpcode : short
-{
+public enum ClientSendOpcode : short {
     PONG = 1,
+    TEST = 2,
 }
 
 public static class ClientSendOpcodeExtensions {

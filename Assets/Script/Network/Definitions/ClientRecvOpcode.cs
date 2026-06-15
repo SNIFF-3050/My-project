@@ -2,7 +2,7 @@ public enum ClientRecvOpcode : short
 {
     PING = 1,
     LOGIN_STATUS = 2,
-    TEST = 3,
+    UI_GOLD = 3,
 }
 
 public static class ClientRecvOpcodeExtensions {

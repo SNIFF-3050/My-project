@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,9 +23,9 @@ namespace Game.Network {
         public PacketDispatcher Dispatcher { get; } = new();
 
         [Header("Network Settings")]
-        public string serverIP = "127.0.0.1";
+        public string serverIP = "218.54.49.3";
         public int serverPort = 8484;
-        public Button myTestButton; // 테스트 버튼
+
         private bool isInitialized = false;
 
         private TcpClient client;
@@ -37,9 +38,9 @@ namespace Game.Network {
 
         private void Awake() {
             if (Instance == null) {
-                foreach (LogType type in Enum.GetValues(typeof(LogType))) {
-                    PlayerSettings.SetStackTraceLogType(type, StackTraceLogType.None);
-                }
+                //foreach (LogType type in Enum.GetValues(typeof(LogType))) {
+                //    PlayerSettings.SetStackTraceLogType(type, StackTraceLogType.None);
+                //}
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
             } else {
@@ -48,10 +49,6 @@ namespace Game.Network {
         }
 
         private void OnEnable() {
-            if (myTestButton != null) {
-                myTestButton.onClick.RemoveListener(OnButtonClicked);
-                myTestButton.onClick.AddListener(OnButtonClicked);
-            }
             if (!isInitialized) {
                 InitializeNetwork();
             }
@@ -159,10 +156,6 @@ namespace Game.Network {
             while (receiveQueue.TryDequeue(out var packet)) {
                 Dispatcher.Dispatch(packet);
             }
-        }
-
-        private void OnButtonClicked() {
-            Send(LoginPacket.getPong());
         }
 
         public void RegisterHandler(short opcode, Action<LittleEndianReader> handler) {
