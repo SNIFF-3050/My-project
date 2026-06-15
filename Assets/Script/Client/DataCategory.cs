@@ -1,5 +1,5 @@
 public enum DataCategory {
     ALL,
-    Gold,
-    Level,
+    GOLD,
+    LEVEL,
 }

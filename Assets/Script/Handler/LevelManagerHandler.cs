@@ -8,9 +8,9 @@ public class LevelManagerHandler : MonoBehaviour {
     void OnDisable() => GameClient.Instance.OnDataChanged -= HandleDataChanged;
 
     private void HandleDataChanged(DataCategory category, CharacterData data) {
-        if (category != DataCategory.Level && category != DataCategory.ALL) {
+        if (category != DataCategory.LEVEL && category != DataCategory.ALL) {
             return;
         }
-        leveltext.text = $"LEVEL: {data.level}";
+        leveltext.text = $": {data.level}";
     }
 }

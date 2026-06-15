@@ -38,7 +38,7 @@ public class GameClient : MonoBehaviour {
         } else {
             Data.gold = amount;
         }
-        OnDataChanged?.Invoke(DataCategory.Gold, Data);
+        OnDataChanged?.Invoke(DataCategory.GOLD, Data);
         NettyManager.Instance.Send(LoginPacket.getGoldInformation(Data.gold));
     }
 }

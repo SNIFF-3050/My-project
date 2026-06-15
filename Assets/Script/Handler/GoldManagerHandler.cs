@@ -8,7 +8,7 @@ public class GoldManagerHandler : MonoBehaviour {
     void OnDisable() => GameClient.Instance.OnDataChanged -= HandleDataChanged;
 
     private void HandleDataChanged(DataCategory category, CharacterData data) {
-        if (category != DataCategory.Gold && category != DataCategory.ALL) {
+        if (category != DataCategory.GOLD && category != DataCategory.ALL) {
             return;
         }
         goldText.text = $"Gold: {data.gold}";

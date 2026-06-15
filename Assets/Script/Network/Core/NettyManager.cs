@@ -84,8 +84,8 @@ namespace Game.Network {
                 try {
                     client = new TcpClient();
                     await client.ConnectAsync(serverIP, serverPort);
-                    OnConnected();
                     stream = client.GetStream();
+                    OnConnected();
                     await ReceiveLoop(token);
                 } catch (Exception e) {
                     Debug.LogWarning($"[NET] 연d결 실패: {e.Message}");
@@ -172,16 +172,7 @@ namespace Game.Network {
 
         private void OnConnected() {
             Debug.Log("서버 연결 성공! 패킷 전송을 준비합니다.");
-            StartCoroutine(SendInitialPackets());
-        }
-
-        private System.Collections.IEnumerator SendInitialPackets() {
-            // 스트림이 할당될 때까지 잠깐 대기
-            yield return new WaitUntil(() => stream != null);
-
-            Debug.Log("캐릭터 정보 요청 패킷 전송!");
-            byte[] packet = LoginPacket.getCharacterInformation(1);
-            Send(packet);
+            Send(LoginPacket.getCharacterInformation(1));
         }
     }
 }
