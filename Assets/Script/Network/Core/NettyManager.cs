@@ -8,10 +8,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using TMPro;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.Network {
     public class NettyManager : MonoBehaviour {
@@ -87,6 +84,7 @@ namespace Game.Network {
                 try {
                     client = new TcpClient();
                     await client.ConnectAsync(serverIP, serverPort);
+                    OnConnected();
                     stream = client.GetStream();
                     await ReceiveLoop(token);
                 } catch (Exception e) {
@@ -134,7 +132,11 @@ namespace Game.Network {
 
         public void Send(byte[] data) {
             sendQueue.Enqueue(data);
-            _ = ProcessSendQueue();
+            if (stream != null && client != null && client.Connected) {
+                _ = ProcessSendQueue();
+            } else {
+                Debug.Log("[NET] 연결 준비 중... 패킷을 큐에 저장했습니다.");
+            }
         }
 
         private async Task ProcessSendQueue() {
@@ -166,6 +168,20 @@ namespace Game.Network {
             ctx?.Cancel();
             stream = stream.DisposeAndNull();
             client = client.DisposeAndNull();
+        }
+
+        private void OnConnected() {
+            Debug.Log("서버 연결 성공! 패킷 전송을 준비합니다.");
+            StartCoroutine(SendInitialPackets());
+        }
+
+        private System.Collections.IEnumerator SendInitialPackets() {
+            // 스트림이 할당될 때까지 잠깐 대기
+            yield return new WaitUntil(() => stream != null);
+
+            Debug.Log("캐릭터 정보 요청 패킷 전송!");
+            byte[] packet = LoginPacket.getCharacterInformation(1);
+            Send(packet);
         }
     }
 }

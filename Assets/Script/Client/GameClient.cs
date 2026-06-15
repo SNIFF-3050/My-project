@@ -26,8 +26,8 @@ public class GameClient : MonoBehaviour {
     }
 
 
-    public void getGoldInformation(long amount, bool addgold) {
-        if (addgold) {
+    public void getGoldInformation(long amount, bool changegoldstatus) {
+        if (changegoldstatus) {
             this.gold += amount;
         } else {
             this.gold = amount;

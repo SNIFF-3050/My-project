@@ -13,7 +13,7 @@ public class GoldManagerHandler : MonoBehaviour {
     void Awake() {
         Instance = this;
     }
-    
+
     public void UpdateUI(long currentGold) {
         if (goldText != null) {
             goldText.text = $"Gold: {currentGold}";
