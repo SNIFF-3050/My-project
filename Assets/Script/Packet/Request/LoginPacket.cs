@@ -11,10 +11,17 @@ namespace Game.Packets.Request {
             return writer.GetPacketBytes();
         }
 
-        public static byte[] getTest() {
+        public static byte[] getCharacterInformation(int accountid) {
             var writer = new LittleEndianWriter();
-            writer.WriteShort(ClientSendOpcode.TEST.GetValue());
-            writer.WriteLong(1323);
+            writer.WriteShort(ClientSendOpcode.LOAD_FROM_CHARACTER.GetValue());
+            writer.WriteInt(accountid);
+            return writer.GetPacketBytes();
+        }
+
+        public static byte[] getGoldInformation(long gold) {
+            var writer = new LittleEndianWriter();
+            writer.WriteShort(ClientSendOpcode.GOLD_UPDATE.GetValue());
+            writer.WriteLong(gold);
             return writer.GetPacketBytes();
         }
     }

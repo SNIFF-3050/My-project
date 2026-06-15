@@ -6,11 +6,9 @@ using UnityEngine.UI;
 
 public class MonsterController : MonoBehaviour {
     public Slider hpSlider;
-    public TextMeshProUGUI goldText; // GoldText를 드래그해서 넣을 칸
 
     public float maxHp = 100f;
     private float currentHp;
-    private long gold = 0; // 골드 변수
 
     public static MonsterController Instance {
         get; private set;
@@ -20,7 +18,6 @@ public class MonsterController : MonoBehaviour {
         Instance = this;
         currentHp = maxHp;
         hpSlider.value = 1f;
-        UpdateGoldUI(); // 시작하자마자 골드 텍스트 표시
     }
 
     public void OnMonsterClicked() {
@@ -30,17 +27,7 @@ public class MonsterController : MonoBehaviour {
         if (currentHp <= 0) {
             currentHp = maxHp;
             hpSlider.value = 1f;
-            NettyManager.Instance.Send(LoginPacket.getPong());
+            GameClient.Instance.getGoldInformation(100, true);
         }
     }
-
-    void UpdateGoldUI() {
-        goldText.text = "Gold: " + gold.ToString();
-    }
-
-    public void AddGold(long amount) {
-        gold = amount;
-        UpdateGoldUI();
-        NettyManager.Instance.Send(LoginPacket.getTest());
-    }
-}
+} 
